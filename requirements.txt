@@ -1,0 +1,4 @@
+matplotlib
+numpy
+scikit-fuzzy
+tensorflow>=2.15
