@@ -1,96 +1,35 @@
+# Neuro-Demos
 
+A set of small, self-contained Python scripts demonstrating basic machine learning and neural network concepts (fuzzy clustering, Hebbian learning, function approximation).
 
-Набір невеликих Python‑скриптів, які демонструють базові концепти машинного навчання та нейромереж:
+> **Screenshots:** TODO — add the plots produced by each script (e.g. `docs/*.png`)
 
-| Скрипт                             | Тема                 | Короткий опис                                                                                          |
-| ---------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------ |
-| **`fuzzy_cmeans_demo.py`**         | Кластеризація        | Fuzzy C‑Means на випадкових 2‑D точках, візуалізація кластерів і кривої збіжності.                     |
-| **`hebbian_letters.py`**           | Асоціативна памʼять  | Навчання за правилом Гебба для розпізнавання літер *M, A, K, S* (one‑hot targets, тест на «шумний» M). |
-| **`function_approximation_nn.py`** | Апроксимація функцій | Порівняння Feed‑Forward, Cascade‑Forward і Elman RNN у задачі апроксимації $0.5\sin(x+0.5)\cos0.5$.    |
+## Scripts
 
----
+| Script | Topic | What it does |
+|---|---|---|
+| `fuzzy_cmeans_demo.py` | Clustering | Fuzzy C-Means (`skfuzzy.cmeans`, c=3, m=1.5) on 100 random 2-D points; plots clusters, centers and the objective-function convergence curve |
+| `hebbian_letters.py` | Associative memory | Hebbian learning rule to recognize the letters M, A, K, S from binary 3×5 masks; tests on training letters and a noisy "M" |
+| `function_approximation_nn.py` | Function approximation | Compares Feed-Forward (10/20 neurons), Cascade-Forward (1–2 hidden layers) and Elman RNN (1×15, 3×5) models in Keras approximating z = 0.5·sin(x+y)·cos(y) at y = 0.5, x ∈ [-2, 1]; plots predictions and MSE curves, prints a mean relative error |
 
-## Швидкий старт
+## Tech stack
 
-> **Потрібен Python ≥ 3.9**
+Python ≥ 3.9, NumPy, Matplotlib, scikit-fuzzy, TensorFlow ≥ 2.15
 
-### 1. Клонуйте репозиторій
-
-```bash
-git clone <repo‑url>
-cd neuro‑demos
-```
-
-### 2. Створіть і активуйте віртуальне середовище
+## Running locally
 
 ```bash
+git clone https://github.com/maksirh/Neuro-Demos.git
+cd Neuro-Demos
 python -m venv venv
-# Linux / macOS
-source venv/bin/activate
-# Windows
-venv\Scripts\activate
-```
-
-### 3. Встановіть залежності
-
-```bash
+source venv/bin/activate            # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-```
 
-
-### 4. Запуск прикладів
-
-```bash
-# Кластеризація
 python fuzzy_cmeans_demo.py
-
-# Розпізнавання літер (Гебб)
 python hebbian_letters.py
-
-# Апроксимація функцій нейромережами
 python function_approximation_nn.py
 ```
 
-Скрипти створюють графіки та друкують метрики у консоль.
+## TODO
 
----
-
-## Деталі реалізації
-
-### `fuzzy_cmeans_demo.py`
-
-* **Дані** — 100 випадкових точок у квадраті $[0,10]^2$.
-* **Алгоритм** — `skfuzzy.cmeans` з `c=3`, `m=1.5`, `max_iter=100`.
-* **Вивід** — точки, центри кластерів (червоний X) та графік збіжності цільової функції.
-
-### `hebbian_letters.py`
-
-* **Вхід** — бінарні 3 × 5 маски літер *M, A, K, S*.
-* **Навчання** — правило Гебба з коефіцієнтом 0.1 (одна епоха).
-* **Тест** — перевірка на тренувальних літерах та на зашумленій масці *M*.
-* **Вивід** — передбачені мітки та матриця ваг.
-
-### `function_approximation_nn.py`
-
-* **Цільова функція:** $f(x)=0.5\sin(x+0.5)\cos0.5$, $x\in[-2,1]$.
-* **Моделі:**
-
-  1. Feed‑Forward Dense (10 і 20 нейронів).
-  2. Cascade‑Forward (1 та 2 приховані шари).
-  3. Elman RNN (1 × 15 та 3 × 5 нейронів).
-* **Метрика:** кастомна середня відносна помилка (`CalcError`).
-* **Візуалізація:** графік функції + прогнозів, криві навчання MSE.
-
----
-
-## Структура репозиторію
-
-```
-│  README.md
-│  requirements.txt
-├─fuzzy_cmeans_demo.py
-├─hebbian_letters.py
-└─function_approximation_nn.py
-```
-
-
+- [ ] Screenshots of the generated plots
